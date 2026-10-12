@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23000'/><text x='50' y='72' font-size='70' font-family='Arial' font-weight='bold' text-anchor='middle' fill='%23ffd700'>F</text></svg>">
+    <title>САЙТ СВАГИ БОССА</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #2c3e50;
+            transition: background-color 0.4s, color 0.4s;
+            cursor: url('cursor.png') 16 16, auto;
+        }
+
+        a, button {
+            cursor: url('cursor.png') 16 16, pointer;
+        }
+
+        /* ЧЁРНО-ЗОЛОТАЯ ЦЫГАНСКАЯ ТЕМА */
+        body.dark {
+            background-color: #0a0a0a;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.15), transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 215, 0, 0.12), transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(255, 180, 0, 0.08), transparent 60%);
+            color: #f5d76e;
+        }
+
+        header {
+            background-color: #3498db;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            transition: background 0.4s, color 0.4s;
+            overflow: hidden;
+        }
+
+        body.dark header {
+            background: linear-gradient(135deg, #000000, #1a1a1a, #000000);
+            color: #ffd700;
+            text-shadow: 0 0 10px #ffd700, 0 0 20px #b8860b;
+            border-bottom: 2px solid #ffd700;
+        }
+
+        header h1 {
+            position: relative;
+            z-index: 2;
+        }
+
+        header p {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ТИГР В ШАПКЕ (виден только в тёмной теме) */
+        .header-tiger {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100px;
+            height: 100px;
+            background-image: url('tiger.gif');
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 0.6s;
+            pointer-events: none;
+            filter: drop-shadow(0 0 12px #ffd700);
+        }
+
+        body.dark .header-tiger {
+            opacity: 1;
+        }
+
+        nav {
+            background-color: #2c3e50;
+            padding: 15px;
+            text-align: center;
+            transition: background 0.4s;
+        }
+
+        body.dark nav {
+            background: linear-gradient(90deg, #000, #1a1a1a, #000);
+            border-bottom: 1px solid #ffd700;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        body.dark nav a {
+            color: #ffd700;
+        }
+
+        body.dark nav a:hover {
+            color: #fff8b0;
+            text-shadow: 0 0 8px #ffd700;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: background 0.4s, box-shadow 0.4s, border 0.4s;
+        }
+
+        body.dark section {
+            background: #111111;
+            border: 1px solid #ffd700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4), inset 0 0 20px rgba(255, 215, 0, 0.05);
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            color: #3498db;
+            transition: color 0.4s, text-shadow 0.4s;
+        }
+
+        body.dark h2 {
+            color: #ffd700;
+            text-shadow: 0 0 8px #b8860b;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: url('cursor.png') 16 16, pointer;
+            margin: 5px 5px 5px 0;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        body.dark button {
+            background: linear-gradient(135deg, #b8860b, #ffd700, #b8860b);
+            color: #000;
+            font-weight: bold;
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+        }
+
+        body.dark button:hover {
+            background: linear-gradient(135deg, #ffd700, #fff8b0, #ffd700);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.9);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-size: 14px;
+            transition: color 0.4s;
+        }
+
+        body.dark footer {
+            color: #b8860b;
+        }
+
+        /* УГЛОВЫЕ ГИФКИ: ТИГРЫ И ЗОЛОТО */
+        .sparkle {
+            position: fixed;
+            width: 130px;
+            height: 130px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.6s;
+            z-index: 999;
+            background-size: contain;
+            background-repeat: no-repeat;
+            filter: drop-shadow(0 0 10px #ffd700);
+        }
+
+        .sparkle.tl {
+            top: 10px;
+            left: 10px;
+            background-image: url('tiger.gif');
+        }
+
+        .sparkle.tr {
+            top: 10px;
+            right: 10px;
+            background-image: url('gold.gif');
+        }
+
+        .sparkle.bl {
+            bottom: 10px;
+            left: 10px;
+            background-image: url('gold.gif');
+        }
+
+        .sparkle.br {
+            bottom: 10px;
+            right: 10px;
+            background-image: url('tiger.gif');
+        }
+
+        body.dark .sparkle {
+            opacity: 1;
+        }
+
+        /* РЕЛИЗЫ */
+        .release {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 0;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .release:last-child {
+            border-bottom: none;
+        }
+
+        body.dark .release {
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .release-cover {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            transition: transform 0.3s, box-shadow 0.3s;
+            background-color: #ddd;
+        }
+
+        .release-cover:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
+        }
+
+        .release-info h3 {
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-size: 20px;
+            transition: color 0.4s, text-shadow 0.4s;
+        }
+
+        body.dark .release-info h3 {
+            color: #ffd700;
+            text-shadow: 0 0 8px #b8860b;
+        }
+
+        .release-info p {
+            margin-bottom: 12px;
+            color: #666;
+            font-size: 14px;
+            transition: color 0.4s;
+        }
+
+        body.dark .release-info p {
+            color: #f5d76e;
+        }
+
+        .release-info a {
+            text-decoration: none;
+        }
+
+        /* ТРЯСКА ЭКРАНА ПРИ РЫКЕ */
+        @keyframes shake {
+            0%   { transform: translate(0, 0) rotate(0deg); }
+            10%  { transform: translate(-10px, -5px) rotate(-1deg); }
+            20%  { transform: translate(10px, 5px) rotate(1deg); }
+            30%  { transform: translate(-12px, 3px) rotate(-1.5deg); }
+            40%  { transform: translate(12px, -3px) rotate(1.5deg); }
+            50%  { transform: translate(-8px, 5px) rotate(-1deg); }
+            60%  { transform: translate(8px, -5px) rotate(1deg); }
+            70%  { transform: translate(-6px, 3px) rotate(-0.5deg); }
+            80%  { transform: translate(6px, -3px) rotate(0.5deg); }
+            90%  { transform: translate(-3px, 1px) rotate(0deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        body.shake {
+            animation: shake 0.7s ease-in-out;
+        }
+
+        /* ПАНЧ */
+        #punch {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px 0;
+            min-height: 60px;
+            transition: color 0.4s;
+        }
+
+        body.dark #punch {
+            color: #ffd700;
+            text-shadow: 0 0 8px #b8860b;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>САЙТ СВАГИ БОССА</h1>
+        <p>Сделано Рэпером MCFimoZ</p>
+        <div class="header-tiger"></div>
+    </header>
+
+    <nav>
+        <a href="#about">Обо мне</a>
+        <a href="#releases">Релизы</a>
+        <a href="#puncher">Панч-инатор</a>
+        <a href="#theme">Тема</a>
+    </nav>
+
+    <main>
+
+        <section id="about">
+            <h2>Обо мне</h2>
+            <p>Я самый крутой нейро-рэпер на Руси. Круче меня только яйца в крутую! 🔥🎤</p>
+        </section>
+
+        <section id="releases">
+            <h2>Мои релизы 💿</h2>
+
+            <div class="release">
+                <img src="https://img.youtube.com/vi/HS3D-pvBPu0/maxresdefault.jpg" alt="Бриллиантовый Релиз" class="release-cover">
+                <div class="release-info">
+                    <h3>Бриллиантовый Релиз</h3>
+                    <p>MC FimoZ — Platina (BRUTAL) · 2025</p>
+                    <a href="https://youtu.be/HS3D-pvBPu0" target="_blank">
+                        <button>▶ СЛУШАТЬ</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="release">
+                <img src="https://img.youtube.com/vi/Yq_Ca8F0GHU/maxresdefault.jpg" alt="Гаубиц" class="release-cover">
+                <div class="release-info">
+                    <h3>Гаубиц</h3>
+                    <p>MC FimoZ · Альбом · 2026</p>
+                    <a href="https://youtube.com/playlist?list=PLRgV5L2O-_3cChfoPRzgvFlSoSspRRjbV" target="_blank">
+                        <button>▶ СЛУШАТЬ</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="release">
+                <img src="https://img.youtube.com/vi/n8NTHoh7ux8/maxresdefault.jpg" alt="ONE LIFE" class="release-cover">
+                <div class="release-info">
+                    <h3>ONE LIFE</h3>
+                    <p>MC FimoZ · Альбом</p>
+                    <a href="https://youtube.com/playlist?list=PLRgV5L2O-_3ch77pZpdCVw5AsYzYFJAN7" target="_blank">
+                        <button>▶ СЛУШАТЬ</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="release">
+                <img src="https://img.youtube.com/vi/g7u_kEBeEnI/maxresdefault.jpg" alt="INGLISH RAP" class="release-cover">
+                <div class="release-info">
+                    <h3>INGLISH RAP</h3>
+                    <p>MC FimoZ · ЕП</p>
+                    <a href="https://youtube.com/playlist?list=PLRgV5L2O-_3eK6qwP-ILi7qwJWRPAY84j" target="_blank">
+                        <button>▶ СЛУШАТЬ</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="release">
+                <img src="https://img.youtube.com/vi/PSIf5C1k0Es/maxresdefault.jpg" alt="Хайпогорье 1212" class="release-cover">
+                <div class="release-info">
+                    <h3>Хайпогорье 1212</h3>
+                    <p>MC FimoZ · ЕП</p>
+                    <a href="https://youtube.com/playlist?list=PLRgV5L2O-_3ckUW-fzlY-l7oyi-YtGwd0" target="_blank">
+                        <button>▶ СЛУШАТЬ</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="release">
+                <img src="https://img.youtube.com/vi/INtprwrwanQ/maxresdefault.jpg" alt="ХХ" class="release-cover">
+                <div class="release-info">
+                    <h3>ХХ</h3>
+                    <p>MC FimoZ · Альбом</p>
+                    <a href="https://www.youtube.com/playlist?list=PLRgV5L2O-_3fj4QzqfbLviQfwW2yQE5qw" target="_blank">
+                        <button>▶ СЛУШАТЬ</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="release">
+                <img src="https://img.youtube.com/vi/_c0Feg4-ld8/maxresdefault.jpg" alt="KENTуки" class="release-cover">
+                <div class="release-info">
+                    <h3>KENTуки</h3>
+                    <p>MC FimoZ × DJ_Piska · Альбом</p>
+                    <a href="https://www.youtube.com/playlist?list=PLRgV5L2O-_3dbBE1fXM3SQ_BVxPlutwVR" target="_blank">
+                        <button>▶ СЛУШАТЬ</button>
+                    </a>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="puncher">
+            <h2>Панч-инатор 3000 🎤</h2>
+            <p>Жми кнопку — панчи польются сами.</p>
+            <p id="punch">Здесь появится твой панч...</p>
+            <button id="autoBtn" onclick="toggleAuto()">▶ ВКЛЮЧИТЬ АВТОПАНЧ 🔥</button>
+            <button onclick="makePunch()">СОЧИНИТЬ ПАНЧ ВРУЧНУЮ</button>
+        </section>
+
+        <section id="theme">
+            <h2>Смена темы</h2>
+            <p>Переключи между светлой и чёрно-золотой цыганской темой. При включении тёмной — РЫК ТИГРА! 🐯</p>
+            <button onclick="toggleTheme()">Переключить тему</button>
+        </section>
+
+    </main>
+
+    <footer>
+        © 2025 Сайт Сваги Босса. Все права защищены.
+    </footer>
+
+    <!-- Угловые гифки: тигры и золото -->
+    <div class="sparkle tl"></div>
+    <div class="sparkle tr"></div>
+    <div class="sparkle bl"></div>
+    <div class="sparkle br"></div>
+
+    <script>
+        const punches = [
+            "Я не читаю рэп — я диктую законы жанра.",
+            "Мой флоу такой тяжёлый, что прогибает биты.",
+            "Ты копируешь стиль, я создаю эпоху.",
+            "Мой панч пробивает броню, как тигриный коготь.",
+            "Я не в игре — я и есть игра.",
+            "Мой текст — золото, твой — фольга.",
+            "Пока ты думал, я уже записал альбом.",
+            "Микрофон дрожит, когда я подхожу.",
+            "Я рэпер, ты — репост.",
+            "Мой панч — как выстрел в упор, без шансов.",
+            "Ты в тени, я — на вершине пьедестала.",
+            "Каждый мой трек — как золотая монета в копилку легенд.",
+            "Я читаю так, что бит сам просит пощады.",
+            "Мой стиль опаснее тигра в клетке.",
+            "Ты рэпуешь словами, я — смыслами.",
+            "Пока ты искал бит, я уже сделал хит.",
+            "Мой голос — это оружие, а ты — мишень.",
+            "Я не соревнуюсь — я задаю стандарт.",
+            "Твой флоу — это эхо моего вчерашнего.",
+            "Я делаю панчи, ты делаешь вид."
+        ];
+
+        let autoTimer = null;
+        let lastIndex = -1;
+
+        function makePunch() {
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * punches.length);
+            } while (randomIndex === lastIndex && punches.length > 1);
+            lastIndex = randomIndex;
+            document.getElementById('punch').textContent = punches[randomIndex];
+        }
+
+        function toggleAuto() {
+            const btn = document.getElementById('autoBtn');
+            if (autoTimer === null) {
+                makePunch();
+                autoTimer = setInterval(makePunch, 2000);
+                btn.textContent = '⏸ ОСТАНОВИТЬ АВТОПАНЧ';
+            } else {
+                clearInterval(autoTimer);
+                autoTimer = null;
+                btn.textContent = '▶ ВКЛЮЧИТЬ АВТОПАНЧ 🔥';
+            }
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+
+            // Если включилась тёмная тема — РЫК ТИГРА + ТРЯСКА
+            if (document.body.classList.contains('dark')) {
+                const roar = new Audio('roar.mp3');
+                roar.volume = 0.8;
+                roar.play().catch(() => {});
+
+                document.body.classList.add('shake');
+                setTimeout(() => {
+                    document.body.classList.remove('shake');
+                }, 700);
+            }
+        }
+    </script>
+
+</body>
+</html>
